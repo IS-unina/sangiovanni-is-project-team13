@@ -1,6 +1,7 @@
 package Entity;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 public class EntityDipendente {
     private String NumPatente;
@@ -10,6 +11,17 @@ public class EntityDipendente {
     private Date DataScadenza;
     private String Username;
     private String Password;
+    private String IdAzienda;
+
+    public String getIdAzienda() {
+        return IdAzienda;
+    }
+
+    public void setIdAzienda(String idAzienda) {
+        IdAzienda = idAzienda;
+    }
+
+
 
     public EntityDipendente(String patente)
     {
@@ -17,7 +29,7 @@ public class EntityDipendente {
 
     }
 
-    public EntityDipendente(String patente, String nome, String cognome, String email, Date data, String user, String pass)
+    public EntityDipendente(String patente, String nome, String cognome, String email, Date data, String user, String pass, String IdAzienda)
     {
         this.Nome=nome;
         this.Cognome=cognome;
@@ -26,6 +38,7 @@ public class EntityDipendente {
         this.Username=user;
         this.Password=pass;
         this.NumPatente= patente;
+        this.IdAzienda = IdAzienda;
 
     }
 

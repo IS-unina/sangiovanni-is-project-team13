@@ -1,20 +1,32 @@
 package Entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Collection;
 
 public class EntityPrenotazione {
 
     private int NumPrenotazione;
     private String IdVeicolo;
-
     private Date DataDiRitiro;
     private Date DataDiConsegna;
+    private String IdDipendente;
+    public String getIdDipendente() {
+        return IdDipendente;
+    }
 
-    public EntityPrenotazione(int numPrenotazione, String idVeicolo, Date dataDiRitiro, Date dataDiConsegna) {
-        NumPrenotazione = numPrenotazione;
+    public void setIdDipendente(String idDipendente) {
+        IdDipendente = idDipendente;
+    }
+
+
+
+    public EntityPrenotazione(int Numero, String idVeicolo, Date dataDiRitiro, Date dataDiConsegna, String idDipendente) {
+        super();
+        NumPrenotazione = Numero;
         IdVeicolo = idVeicolo;
         DataDiRitiro = dataDiRitiro;
         DataDiConsegna = dataDiConsegna;
+        IdDipendente = idDipendente;
     }
 
     public int getNumPrenotazione() {
@@ -47,5 +59,10 @@ public class EntityPrenotazione {
 
     public void setDataDiConsegna(Date dataDiConsegna) {
         DataDiConsegna = dataDiConsegna;
+    }
+
+    public int hashCode()
+    {
+        return 1;
     }
 }

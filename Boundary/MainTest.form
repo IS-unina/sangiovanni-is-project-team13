@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Boundary.MainTest">
+  <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="11" y="161" width="939" height="450"/>
+    </constraints>
+    <properties>
+      <background color="-460552"/>
+      <font name="Microsoft JhengHei" size="16" style="1"/>
+      <foreground color="-4118749"/>
+      <name value=""/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="da3bd" class="javax.swing.JButton" binding="Azienda">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <actionCommand value="Funzionalità Azienda"/>
+          <background color="-32719"/>
+          <font name="Dubai Medium" size="16" style="1"/>
+          <foreground color="-15565125"/>
+          <label value="Funzionalità Azienda"/>
+          <preferredSize width="250" height="100"/>
+          <text value="Funzionalità Azienda"/>
+        </properties>
+      </component>
+      <component id="f05ba" class="javax.swing.JButton" binding="Direttore">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-32719"/>
+          <font name="Dubai Medium" size="16" style="1"/>
+          <foreground color="-15565125"/>
+          <preferredSize width="250" height="100"/>
+          <text value="Funzionalità Direttore"/>
+        </properties>
+      </component>
+      <component id="37965" class="javax.swing.JLabel" binding="Titolo">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Eras Medium ITC" size="36" style="1"/>
+          <foreground color="-15565125"/>
+          <text value="ADD CAR RENTAL"/>
+        </properties>
+      </component>
+      <component id="c0779" class="javax.swing.JButton" binding="Dipendente">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <actionCommand value="Funzionalità Dipendente"/>
+          <background color="-32719"/>
+          <font name="Dubai Medium" size="16" style="1"/>
+          <foreground color="-15565125"/>
+          <preferredSize width="250" height="100"/>
+          <text value="Funzionalità Dipendente"/>
+        </properties>
+      </component>
+      <component id="7a5a3" class="javax.swing.JButton" binding="Responsabile_Officina">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <actionCommand value="Funzionalità Responsabile Officina"/>
+          <background color="-32719"/>
+          <font name="Dubai Medium" size="16" style="1"/>
+          <foreground color="-15565125"/>
+          <preferredSize width="250" height="100"/>
+          <text value="Funzionalità Responsabile Officina"/>
+        </properties>
+      </component>
+      <component id="72a02" class="javax.swing.JLabel" binding="Picture">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <foreground color="-11382190"/>
+          <icon value="revuelto_m (1).png"/>
+          <text value=""/>
+          <verticalTextPosition value="0"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

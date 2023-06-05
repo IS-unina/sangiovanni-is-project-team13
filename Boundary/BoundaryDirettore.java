@@ -4,7 +4,6 @@ import Control.GestioneNoleggio;
 import Exception.*;
 
 public class BoundaryDirettore {
-
         final GestioneNoleggio gestioneNoleggio = GestioneNoleggio.getInstance();
 
         public void InserisciVeicolo (String targa, String modello, int numPasseggeri, int tariffa, String alimentazione, String statoVeicolo) throws OperationException {

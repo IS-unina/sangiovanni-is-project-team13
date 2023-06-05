@@ -63,7 +63,7 @@
           <editable value="true"/>
           <model>
             <item value="Benzina"/>
-            <item value="Gas"/>
+            <item value="Elettrico"/>
             <item value="Diesel"/>
           </model>
         </properties>

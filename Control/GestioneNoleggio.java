@@ -41,14 +41,13 @@ public class GestioneNoleggio {
         try
         {
             ListaDisponibilita = (ArrayList<EntityVeicolo>) VeicoloDAO.readVeicoliDisponibili().clone();
-
             for (EntityPrenotazione prenotazione: PrenotazioneDAO.readPrenotazione(DataRitiro, DataConsegna)
                  ) {
                 eV = VeicoloDAO.readVeicolo(prenotazione.getIdVeicolo());
-                ListaDisponibilita.add(eV);
+                if(eV.getStatoVeicolo().equals("In Servizio"))
+                    ListaDisponibilita.add(eV);
             }
-            if(ListaDisponibilita.isEmpty())
-                throw new OperationException(String.valueOf(ListaDisponibilita.size()));
+
         }
         catch (DatabaseConnectionException var17) {
             throw new OperationException("\nErrore di connessione al database\n");

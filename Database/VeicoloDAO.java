@@ -92,9 +92,8 @@ public class VeicoloDAO {
                 result = stmt.executeQuery();
                 while ((result.next()))
                 {
-                    {
                        EntityPrenotazione eP = new EntityPrenotazione(result.getInt(1), result.getString(2), result.getDate(3) , result.getDate(4), result.getString(5));
-                        if(inizio == true)
+                       if(inizio == true)
                         {
                             control = false;
                             inizio = false;
@@ -113,7 +112,7 @@ public class VeicoloDAO {
 
                             }
 
-                        }
+
                         if(control == false)
                             lista2.add(eP);
                     }
@@ -137,8 +136,6 @@ public class VeicoloDAO {
                         lista.add(eV);
                     }
                 }
-                if(lista.isEmpty())
-                    throw new OperationException(String.valueOf(lista.size()));
             }catch (SQLException ex)
             {
                 throw new DAOException("Errore lettura veicoli");

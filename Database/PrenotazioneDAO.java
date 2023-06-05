@@ -63,6 +63,7 @@ public class PrenotazioneDAO {
     public static ArrayList<EntityPrenotazione> readPrenotazione(Date DataRitiro, Date DataConsegna) throws DAOException, DatabaseConnectionException, OperationException {
         EntityPrenotazione eP = null;
         EntityPrenotazione eP2 = null;
+        EntityVeicolo eV = null;
         ArrayList<EntityPrenotazione> ListaPrenotazioni = new ArrayList<>();
         boolean inizio = true;
         boolean control = true;
@@ -101,22 +102,25 @@ public class PrenotazioneDAO {
                     }
 
                     else {
-                        for (int i = 0; i < ListaPrenotazioni.size(); i++)
-                        {
-                            if(!ListaPrenotazioni.get(i).getIdVeicolo().equals(eP.getIdVeicolo()))
-                                control = false;
-                            else
+                            for (int i = 0; i < ListaPrenotazioni.size(); i++)
                             {
-                                control = true;
-                                break;
-                            }
 
+                                if(!ListaPrenotazioni.get(i).getIdVeicolo().equals(eP.getIdVeicolo()))
+                                    control = false;
+
+                                else
+                                {
+                                    control = true;
+                                    break;
+                                }
+
+                            }
                         }
 
-                    }
                     if(control == false)
                         ListaPrenotazioni.add(eP);
-                }
+                    }
+
                 ArrayList<EntityPrenotazione> lista = new ArrayList<>();
                 while (result2.next())
                 {

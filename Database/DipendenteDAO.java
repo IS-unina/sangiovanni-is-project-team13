@@ -76,7 +76,7 @@ public class DipendenteDAO {
                 stmt.setString(8, dipendente.getIdAzienda());
                 stmt.executeUpdate();
             } catch (SQLException var8) {
-                throw new DAOException("Errore inserimento veicolo");
+                throw new DAOException("Errore inserimento dipendente");
             } finally {
                 DBManager.closeConnection();
             }
@@ -106,7 +106,7 @@ public class DipendenteDAO {
             } finally {
                 DBManager.closeConnection();
             }
-            return false ;
+            return false;
         } catch (SQLException var12) {
             throw new DatabaseConnectionException("Errore connessione database");
         }

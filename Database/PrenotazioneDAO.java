@@ -36,6 +36,34 @@ public class PrenotazioneDAO {
 
 
     }
+    public static ArrayList<String> readTutteLePrenotazioni () throws DAOException, DatabaseConnectionException
+    {
+        ArrayList<String> targhe = new ArrayList<>();
+
+        try {
+            Connection conn = DBManager.getConnection();
+            String query = "SELECT IDVEICOLO FROM PRENOTAZIONE;";
+            try {
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet result = stmt.executeQuery();
+                while (result.next()) {
+                    if(!targhe.contains(result.getString(1)))
+                        targhe.add(result.getString(1));
+                }
+            }catch (SQLException e)
+            {
+                throw new DAOException("Errore dao");
+            }
+            finally {
+                DBManager.closeConnection();;
+            }
+            return targhe;
+            }catch (SQLException e)
+        {
+            throw new DatabaseConnectionException("Errore database");
+        }
+
+    }
 
     public static void createPrenotazione (EntityPrenotazione prenotazione) throws DAOException, DatabaseConnectionException {
         try {
@@ -60,14 +88,38 @@ public class PrenotazioneDAO {
         }
     }
 
-    public static ArrayList<EntityPrenotazione> readPrenotazione(Date DataRitiro, Date DataConsegna) throws DAOException, DatabaseConnectionException, OperationException {
+    public static EntityPrenotazione readPrenotazione (int numPrenotazione) throws DAOException, DatabaseConnectionException {
+        EntityPrenotazione eP = null;
+        try {
+            Connection conn = DBManager.getConnection();
+            String query = "SELECT FROM PRENOTAZIONE WHERE NUMPRENOTAZIONE=?;";
+            try {
+                PreparedStatement stmt = conn.prepareStatement(query);
+                stmt.setInt(1, numPrenotazione);
+                ResultSet result = stmt.executeQuery();
+                if(result.next())
+                {
+                    eP = new EntityPrenotazione(result.getInt(1), result.getString(2), result.getDate(3), result.getDate(4), result.getString(5));
+
+                }
+            } catch (SQLException var8) {
+                throw new DAOException("Errore inserimento Prenotazione");
+            } finally {
+                DBManager.closeConnection();
+            }
+            return eP;
+
+        } catch (SQLException | DAOException var10) {
+            throw new DatabaseConnectionException("Errore connessione database");
+        }
+    }
+
+    public static ArrayList<EntityPrenotazione> readPrenotazioni(Date DataRitiro, Date DataConsegna) throws DAOException, DatabaseConnectionException, OperationException {
         EntityPrenotazione eP = null;
         EntityPrenotazione eP2 = null;
-        EntityVeicolo eV = null;
         ArrayList<EntityPrenotazione> ListaPrenotazioni = new ArrayList<>();
         boolean inizio = true;
         boolean control = true;
-        int count;
 
 
         try {

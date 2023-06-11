@@ -37,8 +37,8 @@ public class Azienda extends JFrame{
     public Azienda() {
     BoundaryAzienda boundaryAzienda = new BoundaryAzienda();
     setContentPane(DirettoreAziendaPanel);
-    setTitle("Inserire Veicolo");
-    setSize(700, 500);
+    setTitle("Inserire Dipendente");
+    setSize(1000, 550);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setVisible(true);
@@ -49,18 +49,30 @@ public class Azienda extends JFrame{
         public void actionPerformed(ActionEvent e) {
 
             try {
-                user = boundaryAzienda.InserisciDipendente(NumeroPatente.getText(), Nome.getText(), Cognome.getText(), Email.getText(), Date.valueOf(DataDiScadenza.getText()), NomeAzienda.getText());
-                eD = DipendenteDAO.readDipendente(user);
-                Messaggio.setText("Lo username del nuovo dipendente è: " + eD.getUsername() + " e la password è: " + eD.getPassword());
+                if(Email.getText().contains("@") && Email.getText().contains("."))
+                {
+                    user = boundaryAzienda.InserisciDipendente(NumeroPatente.getText(), Nome.getText(), Cognome.getText(), Email.getText(), Date.valueOf(DataDiScadenza.getText()), NomeAzienda.getText());
+                    eD = DipendenteDAO.readDipendente(user);
+                    Messaggio.setText("Lo username del nuovo dipendente è: " + eD.getUsername() + " e la password è: " + eD.getPassword());
+                }
+
+                else
+                {
+
+                    Messaggio.setText("L'Email non è corretta. Reinseriscila");
+                    Email.setText("");
+                }
+
 
             } catch (OperationException ex) {
-                Messaggio.setText(user);
+                Messaggio.setText("Errore inserimento dipendente");
             } catch (DAOException ex) {
                 throw new RuntimeException(ex);
             } catch (DatabaseConnectionException ex) {
                 throw new RuntimeException(ex);
             }
-        }
+
+            }
     });
     Indietro.addActionListener(new ActionListener() {
         @Override

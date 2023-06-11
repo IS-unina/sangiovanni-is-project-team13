@@ -20,7 +20,7 @@ public class GestioneNoleggio {
         return gN;
     }
 
-    public void inserisciVeicolo (String targa, String modello, int numPasseggeri, int tariffa, String alimentazione, String statoVeicolo) throws OperationException
+    public void InserisciVeicolo (String targa, String modello, int numPasseggeri, int tariffa, String alimentazione, String statoVeicolo) throws OperationException
     {
         EntityVeicolo eV;
         try
@@ -34,14 +34,16 @@ public class GestioneNoleggio {
             throw new OperationException("Errore connessione Database");
         }
     }
-    public ArrayList<EntityVeicolo> ricercaVeicoli(Date DataRitiro, Date DataConsegna) throws OperationException
+    public ArrayList<EntityVeicolo> RicercaVeicoli(Date DataRitiro, Date DataConsegna) throws OperationException
     {
-        ArrayList<EntityVeicolo> ListaDisponibilita = new ArrayList<>();
-        EntityVeicolo eV = null;
+        ArrayList<EntityVeicolo> ListaDisponibilita;
+        ArrayList<String> targhe;
+        EntityVeicolo eV;
         try
         {
-            ListaDisponibilita = (ArrayList<EntityVeicolo>) VeicoloDAO.readVeicoliDisponibili().clone();
-            for (EntityPrenotazione prenotazione: PrenotazioneDAO.readPrenotazione(DataRitiro, DataConsegna)
+            targhe = (ArrayList<String>) PrenotazioneDAO.readTutteLePrenotazioni().clone();
+            ListaDisponibilita = (ArrayList<EntityVeicolo>) VeicoloDAO.readVeicoliDisponibili(targhe).clone();
+            for (EntityPrenotazione prenotazione: PrenotazioneDAO.readPrenotazioni(DataRitiro, DataConsegna)
                  ) {
                 eV = VeicoloDAO.readVeicolo(prenotazione.getIdVeicolo());
                 if(eV.getStatoVeicolo().equals("In Servizio"))
@@ -57,15 +59,15 @@ public class GestioneNoleggio {
         return ListaDisponibilita;
     }
 
-    public int effettuaNoleggio(String IdVeicolo, Date DataRitiro, Date DataConsegna, String IdDipendente) throws OperationException{
-        EntityPrenotazione eP = null;
+    public int EffettuaNoleggio(String IdVeicolo, Date DataRitiro, Date DataConsegna, String IdDipendente) throws OperationException{
+        EntityPrenotazione eP;
         int Prezzo;
         int numeroPrenotazione;
         try{
             numeroPrenotazione =  PrenotazioneDAO.countPrenotazione();
             eP = new EntityPrenotazione(numeroPrenotazione, IdVeicolo, DataRitiro, DataConsegna, IdDipendente);
             PrenotazioneDAO.createPrenotazione(eP);
-            Prezzo = calcolaPrezzo(IdVeicolo, DataRitiro, DataConsegna);
+            Prezzo = CalcolaPrezzo(IdVeicolo, DataRitiro, DataConsegna);
 
             return Prezzo;
         } catch (DAOException var12){
@@ -78,9 +80,9 @@ public class GestioneNoleggio {
 
     }
 
-    public int calcolaPrezzo (String IdVeicolo, Date DataRitiro, Date DataConsegna) throws OperationException{
-        EntityVeicolo eV = null;
-        int prezzo = 0;
+    public int CalcolaPrezzo (String IdVeicolo, Date DataRitiro, Date DataConsegna) throws OperationException{
+        EntityVeicolo eV;
+        int prezzo;
         int giorni =1000*60*60*24;
         try {
             eV = VeicoloDAO.readVeicolo(IdVeicolo);
@@ -96,7 +98,7 @@ public class GestioneNoleggio {
 
     }
 
-    public void inserisciAzienda (String nome, String indirizzo, String responsabile, String numero, String email) throws OperationException
+    public void InserisciAzienda (String nome, String indirizzo, String responsabile, String numero, String email) throws OperationException
     {
         EntityAzienda eA;
         try
@@ -110,7 +112,7 @@ public class GestioneNoleggio {
             throw new OperationException("Errore connessione Database");
         }
     }
-    public String inserisciDipendente (String numPatente, String nome, String cognome, String email, Date dataScadenza, String idAzienda) throws OperationException
+    public String InserisciDipendente (String numPatente, String nome, String cognome, String email, Date dataScadenza, String idAzienda) throws OperationException
     {
         EntityDipendente eD;
         String user;
@@ -127,7 +129,7 @@ public class GestioneNoleggio {
         }
         return user;
     }
-    public boolean verificaDipendente(String user, String pass) throws OperationException
+    public boolean EffettuaLogin(String user, String pass) throws OperationException
     {
         try {
             return DipendenteDAO.verifyDipendente(user, pass);
@@ -137,7 +139,7 @@ public class GestioneNoleggio {
             throw new RuntimeException(e);
         }
     }
-    public void modificaStatoVeicolo (EntityVeicolo veicolo, String stato) throws OperationException, DAOException, DatabaseConnectionException {
+    public void ModificaStatoVeicolo (EntityVeicolo veicolo, String stato) throws OperationException, DAOException, DatabaseConnectionException {
         try {
             VeicoloDAO.modifyVeicolo(veicolo, stato);
         } catch (DAOException e) {

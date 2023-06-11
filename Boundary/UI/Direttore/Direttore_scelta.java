@@ -18,7 +18,7 @@ public class Direttore_scelta extends JFrame{
     {
         setContentPane(Direttore_Scelta_Panel);
         setTitle("Inserire Scelta");
-        setSize(700, 450);
+        setSize(1000, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

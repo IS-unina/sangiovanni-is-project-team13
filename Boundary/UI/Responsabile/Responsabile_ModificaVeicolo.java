@@ -2,19 +2,22 @@ package Boundary.UI.Responsabile;
 
 import Boundary.BoundaryResponsabile;
 import Boundary.MainTest;
+import Database.PrenotazioneDAO;
 import Database.VeicoloDAO;
 import Entity.EntityVeicolo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import Exception.*;
 public class Responsabile_ModificaVeicolo extends JFrame{
     public JFrame frame;
     private JPanel ModificaPanel;
     private JLabel Titolo;
     private JLabel labelTarga;
-    private JTextField Targa;
+    private JComboBox Targa;
     private JLabel labelStato;
     private JButton Indietro;
     private JButton Conferma;
@@ -22,9 +25,20 @@ public class Responsabile_ModificaVeicolo extends JFrame{
     private JComboBox StatoVeicolo;
 public Responsabile_ModificaVeicolo() {
     BoundaryResponsabile boundaryResponsabile = new BoundaryResponsabile();
+    try {
+        ArrayList<String> targhe = (ArrayList<String>) PrenotazioneDAO.readTutteLePrenotazioni().clone();
+        for (String targa:targhe
+             ) {
+            Targa.addItem(targa);
+        }
+    } catch (DAOException e) {
+        throw new RuntimeException(e);
+    } catch (DatabaseConnectionException e) {
+        throw new RuntimeException(e);
+    }
     setContentPane(ModificaPanel);
     setTitle("Schermata Modifica Stato Veicolo");
-    setSize(1000, 450);
+    setSize(1000, 550);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setVisible(true);
@@ -33,7 +47,7 @@ public Responsabile_ModificaVeicolo() {
         public void actionPerformed(ActionEvent e) {
             EntityVeicolo eV;
             try {
-                eV = VeicoloDAO.readVeicolo(Targa.getText());
+                eV = VeicoloDAO.readVeicolo((String)Targa.getSelectedItem() );
                 try {
                     boundaryResponsabile.ModificaStatoVeicolo(eV, (String )StatoVeicolo.getSelectedItem());
                 }catch (OperationException ex)

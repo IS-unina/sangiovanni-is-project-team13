@@ -13,7 +13,7 @@ public class BoundaryCliente {
 
     public ArrayList<EntityVeicolo> RicercaVeicoli (Date DataRitiro, Date DataConsegna) throws OperationException, DAOException, DatabaseConnectionException {
         ArrayList<EntityVeicolo> disponibili = new ArrayList<>();
-        ArrayList<EntityVeicolo> lista = (ArrayList<EntityVeicolo>) gestioneNoleggio.ricercaVeicoli(DataRitiro, DataConsegna).clone();
+        ArrayList<EntityVeicolo> lista = (ArrayList<EntityVeicolo>) gestioneNoleggio.RicercaVeicoli(DataRitiro, DataConsegna).clone();
 
             for ( EntityVeicolo veicolo : lista)
                 disponibili.add(veicolo);
@@ -23,7 +23,7 @@ public class BoundaryCliente {
     public int EffettuaNoleggio(String IdVeicolo, Date DataRitiro, Date DataConsegna, String IdDipendente) throws OperationException, DAOException, DatabaseConnectionException {
         int Prezzo;
         try {
-            Prezzo = gestioneNoleggio.effettuaNoleggio(IdVeicolo, DataRitiro, DataConsegna, IdDipendente);
+            Prezzo = gestioneNoleggio.EffettuaNoleggio(IdVeicolo, DataRitiro, DataConsegna, IdDipendente);
 
         }catch (OperationException var8)
         {
@@ -32,8 +32,8 @@ public class BoundaryCliente {
         return Prezzo;
     }
 
-    public boolean VerificaDipendente (String user, String pass) throws OperationException {
-        return gestioneNoleggio.verificaDipendente(user, pass);
+    public boolean EffettuaLogin (String user, String pass) throws OperationException {
+        return gestioneNoleggio.EffettuaLogin(user, pass);
 
     }
 }

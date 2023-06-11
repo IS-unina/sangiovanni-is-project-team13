@@ -25,13 +25,14 @@ public class Direttore_Veicolo extends JFrame{
     private JLabel labelStato;
     private JButton Indietro;
     private JLabel Titolo;
+    private JTextPane Messaggio;
 
     public Direttore_Veicolo()
     {
         BoundaryDirettore boundaryDirettore = new BoundaryDirettore();
         setContentPane(DirettorePanel);
         setTitle("Inserire Veicolo");
-        setSize(700, 450);
+        setSize(1000, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -39,7 +40,8 @@ public class Direttore_Veicolo extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    boundaryDirettore.InserisciVeicolo(Targa.getText(), Modello.getText(), Integer.valueOf(NumPasseggeri.getText()), Integer.valueOf(Tariffa.getText()),Alimentazione.getSelectedItem().toString(), StatoVeicolo.getSelectedItem().toString());
+                    boundaryDirettore.InserisciVeicolo(Targa.getText().toUpperCase(), Modello.getText(), Integer.valueOf(NumPasseggeri.getText()), Integer.valueOf(Tariffa.getText()),Alimentazione.getSelectedItem().toString(), StatoVeicolo.getSelectedItem().toString());
+                    Messaggio.setText("Veicolo registrato con successo");
                 } catch (OperationException var15){
 
                 }

@@ -13,7 +13,7 @@ public class BoundaryAzienda {
     public String InserisciDipendente(String numPatente, String nome, String cognome, String email, Date dataScadenza, String idAzienda) throws OperationException, DAOException, DatabaseConnectionException
     {
         String user;
-        user = gestioneNoleggio.inserisciDipendente(numPatente, nome, cognome, email, dataScadenza,idAzienda);
+        user = gestioneNoleggio.InserisciDipendente(numPatente, nome, cognome, email, dataScadenza,idAzienda);
         return user;
 
 

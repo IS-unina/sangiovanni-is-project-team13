@@ -26,7 +26,7 @@ public Cliente_Login() {
     BoundaryCliente boundaryCliente = new BoundaryCliente();
     setContentPane(LoginPanel);
     setTitle("Schermata Login");
-    setSize(1000, 450);
+    setSize(1000, 550);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setVisible(true);
@@ -35,16 +35,29 @@ public Cliente_Login() {
         public void actionPerformed(ActionEvent e) {
             boolean control = false;
             try {
-                control = boundaryCliente.VerificaDipendente(username.getText(), password.getText());
-                if(control == true)
+                if(password.getText().length() == 7)
                 {
-                    Cliente_Ricerca ricerca = new Cliente_Ricerca(username.getText());
-                    dispose();
-                    ricerca.frame.setVisible(true);
+                    if(!username.getText().isEmpty() && username.getText().contains("User"))
+                    {
+                        control = boundaryCliente.EffettuaLogin(username.getText(), password.getText());
+                        if(control == true)
+                        {
+                            Messaggio.setText("Accesso effettuato!");
+                            Cliente_Ricerca ricerca = new Cliente_Ricerca(username.getText());
+                            dispose();
+                            ricerca.frame.setVisible(true);
 
+                        }
+                        else
+                            Messaggio.setText("Il dipendente non esiste, ritenta!");
+                    }
+
+                    else
+                        Messaggio.setText("Username errato, reinserirlo");
                 }
                 else
-                    Messaggio.setText("Il dipendente non esiste, ritenta!");
+                    Messaggio.setText("Password troppo lunga. Reinserire");
+
             } catch (OperationException ex) {
                 throw new RuntimeException(ex);
             }

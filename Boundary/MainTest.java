@@ -23,7 +23,7 @@ public class MainTest extends JFrame{
     public MainTest(){
         setContentPane(panel1);
         setTitle("ADD CAR RENTAL");
-        setSize(700, 450);
+        setSize(1000, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

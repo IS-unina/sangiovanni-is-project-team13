@@ -10,7 +10,7 @@ public class BoundaryResponsabile {
     public void ModificaStatoVeicolo(EntityVeicolo veicolo, String stato) throws OperationException
     {
         try {
-            gestioneNoleggio.modificaStatoVeicolo(veicolo, stato);
+            gestioneNoleggio.ModificaStatoVeicolo(veicolo, stato);
         } catch (DAOException e) {
             throw new OperationException("Errore Dao nel boundary");
         } catch (DatabaseConnectionException e) {

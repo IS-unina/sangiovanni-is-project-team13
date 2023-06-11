@@ -49,34 +49,56 @@ public class Cliente_Ricerca extends JFrame {
 
     setContentPane(Cliente_Panel);
 
-    setTitle("Schermata Dipendente");
-    setSize(1000, 450);
+    setTitle("Schermata Noleggio");
+    setSize(1000, 550);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setVisible(true);
     RicercaVeicoli.addActionListener(new ActionListener() {
+
         @Override
         public void actionPerformed(ActionEvent e){
-            ArrayList<EntityVeicolo> returnList = new ArrayList<>();
+            ArrayList<EntityVeicolo> returnList;
+            boolean control = false;
             model.setRowCount(0);
-
             try {
-                returnList = (ArrayList<EntityVeicolo>) boundaryCliente.RicercaVeicoli(Date.valueOf(DataRitiro.getText()), Date.valueOf(DataConsegna.getText())).clone();
 
-                if(returnList.size() != 0) {
+                    if (Date.valueOf(DataRitiro.getText()).after(Date.valueOf(DataConsegna.getText())))
+                    {
+                        control = false;
+                        Messaggio.setText("La data di ritiro non può essere successiva a quella di consegna. Reinserire le date");
+                        DataRitiro.setText("");
+                        DataConsegna.setText("");
+                    }
+                    else if (Date.valueOf(DataRitiro.getText()).after(Date.valueOf("2030-01-01")) || Date.valueOf(DataConsegna.getText()).after(Date.valueOf("2030-01-01")))
+                    {
+                        control = false;
+                        Messaggio.setText("Intervallo di tempo troppo futuro. Reinserire le date");
+                        DataRitiro.setText("");
+                        DataConsegna.setText("");
+                    }
+                    else
+                    {
+                        returnList = (ArrayList<EntityVeicolo>) boundaryCliente.RicercaVeicoli(Date.valueOf(DataRitiro.getText()), Date.valueOf(DataConsegna.getText())).clone();
 
-                    for (EntityVeicolo veicolo : returnList) {
+                        if(returnList.size() != 0) {
 
-                        model.addRow(new Object[]{veicolo.getTarga(), veicolo.getModello(), veicolo.getNumPasseggeri(), veicolo.getTariffa(), veicolo.getAlimentazione(), veicolo.getStatoVeicolo()});
-                        tabellaDisponibilità.setModel(model);
+                            for (EntityVeicolo veicolo : returnList) {
 
+                                model.addRow(new Object[]{veicolo.getTarga(), veicolo.getModello(), veicolo.getNumPasseggeri(), veicolo.getTariffa(), veicolo.getAlimentazione(), veicolo.getStatoVeicolo()});
+                                tabellaDisponibilità.setModel(model);
+
+                            }
+
+                            Messaggio.setText("Eccoti la lista dei veicoli disponibili!");
+
+                        }
+                        else
+                            Messaggio.setText("Non ci sono veicoli");
                     }
 
-                    Messaggio.setText("Eccoti la lista dei veicoli disponibili!");
 
-                }
-                else
-                    Messaggio.setText("Non ci sono veicoli");
+
 
 
 
@@ -88,17 +110,36 @@ public class Cliente_Ricerca extends JFrame {
             } catch (DatabaseConnectionException var9) {
 
             }
-        }
+            }
+
     });
     NoleggiaVeicolo.addActionListener(new ActionListener() {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             int indice;
+
             indice = tabellaDisponibilità.getSelectedRow();
             int Prezzo;
             try {
-                Prezzo = boundaryCliente.EffettuaNoleggio((String) model.getValueAt(indice, 0), Date.valueOf(DataRitiro.getText()), Date.valueOf(DataConsegna.getText()), user);
-                Messaggio.setText("Veicolo Noleggiato! Dovrai pagare " + Prezzo + " euro");
+
+                    if (Date.valueOf(DataRitiro.getText()).after(Date.valueOf(DataConsegna.getText())))
+                    {
+
+                        Messaggio.setText("La data di ritiro non può essere successiva a quella di consegna. Reinserire le date");
+                    }
+                    else if (Date.valueOf(DataRitiro.getText()).after(Date.valueOf("2030-01-01")) || Date.valueOf(DataConsegna.getText()).after(Date.valueOf("2030-01-01")))
+                    {
+
+                        Messaggio.setText("Intervallo di tempo troppo futuro. Reinserire le date");
+                    }
+                    else
+                    {
+                        Prezzo = boundaryCliente.EffettuaNoleggio((String) model.getValueAt(indice, 0), Date.valueOf(DataRitiro.getText()), Date.valueOf(DataConsegna.getText()), user);
+                        Messaggio.setText("Veicolo Noleggiato! Dovrai pagare " + Prezzo + " euro");
+                    }
+
+
 
             } catch (OperationException ex) {
                 Messaggio.setText("Problema interno all'app : OP ");

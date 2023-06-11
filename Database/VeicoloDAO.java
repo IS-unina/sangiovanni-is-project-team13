@@ -64,11 +64,10 @@ public class VeicoloDAO {
             throw new DatabaseConnectionException("Errore connessione database");
         }
     }
-    public static ArrayList<EntityVeicolo> readVeicoliDisponibili () throws DAOException, DatabaseConnectionException, OperationException {
+    public static ArrayList<EntityVeicolo> readVeicoliDisponibili (ArrayList<String> stringhe) throws DAOException, DatabaseConnectionException, OperationException {
         EntityVeicolo eV = null;
-        ArrayList<String> targhe = new ArrayList<>();
         ArrayList<EntityVeicolo> lista = new ArrayList<>();
-        ArrayList<EntityPrenotazione> lista2 = new ArrayList<>();
+        ArrayList<String> targhe = new ArrayList<>();
         boolean control = true;
         boolean inizio = true;
 
@@ -76,7 +75,6 @@ public class VeicoloDAO {
         try {
             Connection conn = DBManager.getConnection();
             String query = "SELECT * FROM VEICOLO WHERE STATOVEICOLO='In Servizio';";
-            String query2 = "SELECT * FROM PRENOTAZIONE;";
 
 
             try {
@@ -88,53 +86,16 @@ public class VeicoloDAO {
                 }
                 result.close();
                 stmt.close();
-                stmt = conn.prepareStatement(query2);
-                result = stmt.executeQuery();
-                while ((result.next()))
-                {
-                       EntityPrenotazione eP = new EntityPrenotazione(result.getInt(1), result.getString(2), result.getDate(3) , result.getDate(4), result.getString(5));
-                       if(inizio == true)
-                        {
-                            control = false;
-                            inizio = false;
-                        }
 
-                        else {
-                            for (int i = 0; i < lista2.size(); i++)
-                            {
-                                if(!lista2.get(i).getIdVeicolo().equals(eP.getIdVeicolo()))
-                                    control = false;
-                                else
-                                {
-                                    control = true;
-                                    break;
-                                }
-
-                            }
-
-
-                        if(control == false)
-                            lista2.add(eP);
-                    }
-                }
                 for (String targa:targhe
                      ) {
-                    if(lista2.isEmpty())
-                        control = false;
-                    for (int i = 0; i<lista2.size(); i++)
-                    {
-                        if(!targa.equals(lista2.get(i).getIdVeicolo()))
-                           control = false;
-                        else {
-                            control = true;
-                            break;
-                        }
-                    }
-                    if(control == false)
+                    if(!stringhe.contains(targa))
                     {
                         eV = readVeicolo(targa);
                         lista.add(eV);
+
                     }
+
                 }
             }catch (SQLException ex)
             {

@@ -23,11 +23,13 @@ public class Direttore_Azienda extends JFrame{
     private JButton Conferma;
     private JButton Indietro;
     private JTextField Email;
-public Direttore_Azienda() {
+    private JTextPane Messaggio;
+
+    public Direttore_Azienda() {
     BoundaryDirettore boundaryDirettore = new BoundaryDirettore();
     setContentPane(DirettoreAziendaPanel);
-    setTitle("Inserire Veicolo");
-    setSize(700, 450);
+    setTitle("Inserire Azienda");
+    setSize(1000, 550);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setVisible(true);
@@ -35,7 +37,15 @@ public Direttore_Azienda() {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                boundaryDirettore.InserisciAzienda(Nome.getText(), Indirizzo.getText(), Responsabile.getText(), NumeroTelefono.getText(), Email.getText());
+                if(Email.getText().contains("@") && Email.getText().contains(".")) {
+                    boundaryDirettore.InserisciAzienda(Nome.getText(), Indirizzo.getText(), Responsabile.getText(), NumeroTelefono.getText(), Email.getText());
+                    Messaggio.setText("registrazione azienda avvenuta con successo");
+                }
+                else {
+                    Messaggio.setText("Email non inserita correttamente. Reinseriscila");
+                    Email.setText("");
+                }
+
             } catch (OperationException var15){
 
             }
